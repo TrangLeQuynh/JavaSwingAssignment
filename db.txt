@@ -1,0 +1,128 @@
+use db_khoaCNTT;
+
+create table Khoa
+(
+	maKhoa int not null primary key,
+	tenKhoa nvarchar(30),
+	ngayThanhLap date
+);
+insert into Khoa values(1,"Công nghệ thông tin", "2002-02-02");
+create table ToBoMon
+(
+	maToBoMon int not null primary key,
+	tenBoMon nvarchar(30),
+	diaChi nvarchar(255),
+	sdt varchar(12),
+	maKhoa int,
+    constraint fk_ToBoMon foreign key (maKhoa)  references Khoa(maKhoa)
+);
+
+
+/*insert ToBoMon*/
+insert into ToBoMon values(101,"Công nghệ phần mềm",'208-A9','0345365945',1);
+insert into ToBoMon values(102,"Kỹ thuật phần mềm",'402-A8','098845204',1);
+insert into ToBoMon values(103,"Hệ thống thông tin",'405-A7','096545294',1);
+insert into ToBoMon values(104,"Khoa học máy tính",'406-A8','091000784',1);
+
+
+create table CongVan
+(
+	maCongVan char(5)  not null primary key,
+	tieude nvarchar(20) not null,
+	noiDung nvarchar(255),
+	ngayTao date,
+	ngaySua date,
+	xacNhan bit
+);
+
+
+create table HocPhan
+(
+	maHocPhan int not null primary key,
+	tenHocPhan nvarchar(255),
+	soTinChiLT int,
+	soTinChiTH int,
+	soTinChi int
+);
+
+insert into HocPhan values(1,"Toán rời rạc",3,0,3);
+insert into HocPhan values(2,"Lập trình java",3,1,4);
+insert into HocPhan values(3,"Công nghệ thực tại ảo",2,1,3);
+insert into HocPhan values(4,"Thiết kế web",2,1,3);
+insert into HocPhan values(5,"Trí tuệ nhân tạo",2,1,3);
+insert into HocPhan values(6,"Đồ họa ứng dụng",1,2,3);
+insert into HocPhan values(7,"Hệ quản trị CSDL",2,1,3);
+insert into HocPhan values(8,"Điện toán đám mây",2,1,3);
+
+create table GiaoVien
+(
+	maGV char(10) primary key not null,
+	hoTen nvarchar(100) not null,
+	ngaySinh date,
+	gioiTinh nchar(5),
+	danToc nvarchar(20),
+	email varchar(255),
+	cmnd varchar(12),
+	sdt varchar(12),
+	diaChi nvarchar(255),
+	hocVi nvarchar(50),
+	matKhau nvarchar(20),
+	chucVu nvarchar(30),
+	role bit,
+	maToBoMon int,
+    constraint fk_GV foreign key (maToBoMon) references ToBoMon(maToBoMon)
+);
+
+insert into GiaoVien values('GV001',"Trần Phương Nhung",'1990-09-03',"Nữ",'Kinh','nhung123@gmail.com','125077751','0368713813',"Hà Nội","Thạc sĩ",'123456',"Tổ trưởng",1,102);
+insert into GiaoVien values('GV002',"Nguyễn Trung Phú",'1987-04-12','Nam','Kinh','phu123@gmail.com','125188842','0367864775',"Bắc Giang","Thạc sĩ",'123456',"Giảng viên",0,103);
+insert into GiaoVien values('GV003',"Nguyễn Thị Hương Lan",'1989-06-26',"Nữ",'Kinh','huonglan@gmail.com','114268642','0367864635',"Thái Bình","Tiến sĩ",'123456',"Giảng viên",0,101);
+insert into GiaoVien values('GV004',"Trần Tiến Dũng",'1985-12-03',"Nam",'Kinh','tienDung@gmail.com','125023415','0311903813',"Nam Định","Thạc sĩ",'123456',"Tổ trưởng",0,101);
+insert into GiaoVien values('GV005',"Nguyễn Văn Thắng",'1980-08-01','Nam','Kinh','thang@gmail.com','189034842','0390904775',"Hà Nội","Thạc sĩ",'123456',"Tổ trưởng",1,104);
+insert into GiaoVien values('GV006',"Vũ Thị Tuyết Mai",'1989-09-06',"Nữ",'Kinh','tuyetmai@gmail.com','114200034','0356880975',"Thái Bình","Tiến sĩ",'123456',"Giảng viên",0,102);
+insert into GiaoVien values('GV007',"Đoàn Văn Trung",'1989-02-13',"Nam",'Kinh','trung123@gmail.com','125880915','0390232313',"Quảng Ninh","Thạc sĩ",'123456',"Tổ trưởng",1,103);
+insert into GiaoVien values('GV008',"Nguyễn Bá Nghiễn",'1980-08-21','Nam','Kinh','nghienNB@gmail.com','189034113','0396644775',"Hà Nội","Thạc sĩ",'123456',"Giảng viên",0,104);
+insert into GiaoVien values('GV009',"Nguyễn Thị Nga",'1989-10-07',"Nữ",'Kinh','nganq@gmail.com','114200189','032390975',"Thái Bình","Tiến sĩ",'123456',"Giảng viên",0,101);
+
+create table HocKy(
+	maHocKy int not null primary key,
+    hocKy nvarchar(20),
+    namHoc varchar(20),
+    thoiGianBD date,
+    thoiGianKT date,
+    soTietChiTieu int
+);
+
+insert into HocKy values (1,"HK2","2019-2020","2019-08-01","2020-04-04",120);
+insert into HocKy values (2,"HK Phụ","2019-2020","2020-07-27","2020-09-06",80);
+Select * from HocKy where namHoc="2020-2021";
+select * from LopDocLap;
+
+create table LopDocLap(
+	maLop char(15) not null ,
+    maHocKy int,
+    maGV char(10),
+    maHocPhan int,
+    soTietLT int, 
+    soTietTH int,
+    ngayThu int,
+    tietHoc char(20),
+    constraint pk_LDL primary key(maLop),
+    constraint fk1_LDL foreign key (maGV) references giaovien(maGV) ,
+    constraint fk2_LDL foreign key (maHocKy) references HocKy(maHocKy) ,
+    constraint fk3_LDL foreign key (maHocPhan) references hocphan(maHocPhan)
+);
+insert into LopDocLap values ("20201101",1,null,3,30,0,5,",5,6");
+select * from LopDocLap;
+create table GiaoCongVan
+(
+	maCongVan char(5) not null,
+	maGV char(10) not null,
+	ngayGui date,
+	primary key(maCongVan, maGV),
+    constraint fk1_GiaoCongVan foreign key (maCongVan) references CongVan(maCongVan) on update cascade on delete cascade,
+    constraint fk2_GiaoCongVan foreign key (maGV) references GiaoVien(maGV) on update cascade on delete cascade
+);
+Select * from GiaoVien;
+Select * from LopDocLap;
+Select GiaoVien.maGV,hoTen, LopDocLap.maHocKy, Sum(soTietLT+soTietTH) as taiGiangDay from GiaoVien right join LopDocLap on LopDocLap.maGV= GiaoVien.maGV where maHocKy=1 group by GiaoVien.maGV,hoTen, LopDocLap.maHocKy ;
+ 
